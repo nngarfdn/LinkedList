@@ -50,6 +50,7 @@ class LinkedList:
                     return False
                 p = p.getNext()
 
+
     def cariData(self, namaData):
         p = self.head
         dataKe = 0
