@@ -68,14 +68,21 @@ class LinkedList:
 
 
     def sisipData(self, dataApa, nilaiData):
-        p = self.head
+        if self.isEmpty() :
+            return None
+        else:
+            p = self.head
 
-        while p is not None :
-            if p.getData() == dataApa :
-                newNode = Node(nilaiData)
-                p.setNext(nilaiData)
-                break
-        p = p.getNext()
+            while(p.data is not dataApa) :
+                p = p.getNext()
+                if(p is None) :
+                    self.insertLast(dataApa)
+                    return True
+
+            newNode = Node(nilaiData)
+            dataSetelah = p.getNext()
+            p.setNext(newNode)
+            (p.getNext()).setNext(dataSetelah)
 
     def isEmpty(self):
         if self.head == None:
@@ -123,6 +130,24 @@ class LinkedList:
             p.setNext(None)  # sama dengan p.next = None
             return yangKeluar
 
+    def deleteNode(self, dataDihapus):
+        if (self.isEmpty()):
+            return None
+        else:
+            p = self.head
+            # Berhenti loop sebelum menemukan dataDihapus
+            # maka akan didapatkan |data sebelum dataDihapus|
+            # |Data sebelum dataDihapus| dibutuhkan untuk
+            # mengganti data setelah |data sebelum dataDihapus| (yaitu dataDihapus)
+            # dengan data setelah dataDihapus
+            while ((p.getNext()).data is not dataDihapus):
+                p = p.getNext()
+                if (p.getNext() is None):
+                    return False
+
+            dataSetelah = (p.getNext()).getNext()
+            p.setNext(dataSetelah)
+
     def printAll(self):
         p = self.head
         while p is not None:
@@ -135,9 +160,5 @@ LL.insertFirst("Nussa")
 LL.insertFirst("Rara")
 LL.insertLast("Anta")
 LL.sisipData("Rara", "Ariq")
+print(LL.deleteNode("Nussa"))
 LL.printAll()
-print(LL.countNode())
-print(LL.cekData("Nussa"))
-print(LL.cekData("kjrhgkjre"))
-print(LL.cariData("Nussa"))
-print(LL.cariData("Anta"))
